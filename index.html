@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旋转特效</title>
+</head>
+<style>
+    body {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        width: 100%;
+        height: 1000px;
+        justify-content: center;
+        align-items: center;
+        background: #000;
+    }
+</style>
+
+<body>
+    <canvas id="canvas" width="800" height="800"></canvas>
+    <script>
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        var size = 800;
+        var deg = 0;
+        function draw() {
+            ctx.clearRect(0, 0, size, size);
+            for (var i = 0; i < 8; i++) {
+                //8个半圆，相交与中心点400，400，依次旋转位置多加45度，deg使圆旋转
+                var x1 = size / 4 * Math.cos(i / 4 * Math.PI +deg/5) + size / 2;
+                var y1 = size / 4 * Math.sin(i /4 * Math.PI +deg/5) + size / 2;
+                ctx.beginPath();
+                ctx.arc(x1, y1, size / 4, deg+i / 4 * Math.PI, Math.PI + deg+i / 4 * Math.PI)
+                ctx.strokeStyle = "hsl("+deg*50+"deg,80%,50%)";
+                ctx.lineWidth=3
+                ctx.stroke();
+
+                var x2 = size / 4 * Math.cos(i / 4 * Math.PI +0.5-deg/5) + size / 2;
+                var y2 = size / 4 * Math.sin(i /4 * Math.PI +0.5-deg/5) + size / 2;
+                ctx.beginPath();
+                ctx.arc(x2, y2, size / 5, deg+i / 4 * Math.PI, Math.PI + deg+i / 4 * Math.PI)
+                ctx.strokeStyle = "hsl("+deg*100+"deg,80%,50%)";
+                ctx.lineWidth=1
+                ctx.stroke();
+
+                var x3 = size / 4 * Math.cos(i / 4 * Math.PI +0.5-deg/0.5) + size / 2;
+                var y3 = size / 4 * Math.sin(i /4 * Math.PI +0.5-deg/0.5) + size / 2;
+                ctx.beginPath();
+                ctx.arc(x2, y2, size / 6, deg+i / 4 * Math.PI, Math.PI + deg+i / 4 * Math.PI)
+                ctx.strokeStyle = "hsl("+deg*150+"deg,80%,50%)";
+                ctx.lineWidth=1
+                ctx.stroke();
+                deg += 0.02
+            }
+
+        }
+       
+        setInterval(draw, 40)
+    </script>
+</body>
+
+</html>
